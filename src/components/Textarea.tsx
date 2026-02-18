@@ -1,4 +1,5 @@
 import type { TextareaHTMLAttributes } from "react"
+import "../css/Textarea.css"
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
 

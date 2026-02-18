@@ -3,7 +3,7 @@ import Textarea from "./components/Textarea"
 function App() {
   return (
     <>
-      <Textarea  />
+      <Textarea placeholder="Write your text here..." />
     </>
   )
 }
