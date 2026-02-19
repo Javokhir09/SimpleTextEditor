@@ -42,6 +42,7 @@ function App() {
         backgroundImage: `url(${wallpapers[currentWallpaper]})`,
       }}
     >
+      
       <Textarea
         placeholder="Write your text here..."
         onChange={(e) => setText(e.target.value)}
