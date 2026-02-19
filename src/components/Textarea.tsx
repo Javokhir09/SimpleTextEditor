@@ -1,8 +1,12 @@
-import type { TextareaHTMLAttributes } from "react"
-import "../css/Textarea.css"
+import { forwardRef, type TextareaHTMLAttributes } from "react";
+import "../css/Textarea.css";
 
-type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
+type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export default function Textarea(props: TextareaProps) {
-  return <textarea {...props}></textarea>
-}
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  function Textarea(props, ref) {
+    return <textarea ref={ref} {...props} />;
+  },
+);
+
+export default Textarea;
