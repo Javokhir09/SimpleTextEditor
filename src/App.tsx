@@ -6,6 +6,7 @@ import bg3 from "./assets/bg-3.jpg";
 import bg4 from "./assets/bg-4.jpg";
 import Button from "./components/Button";
 import { AArrowDownIcon, AArrowUpIcon } from "lucide-react";
+import Input from "./components/Input";
 
 function App() {
   const [text, setText] = useState<string>("");
@@ -53,6 +54,7 @@ function App() {
     >
       <div className="editor">
         <div className="options">
+          <Input type="number" max={104} min={2} />
           <Button onClick={() => setTextSize(textSize+1)}><AArrowUpIcon /></Button>
           <Button onClick={() => setTextSize(textSize-1)}><AArrowDownIcon /></Button>
         </div>
