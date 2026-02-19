@@ -11,13 +11,14 @@ import Input from "./components/Input";
 function App() {
   const [text, setText] = useState<string>("");
   const [textSize, setTextSize] = useState<number>(16);
+  const [tempTextSize, setTempTextSize] = useState<number>(16);
   const wallpapers = [bg1, bg2, bg3, bg4];
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
   const [currentWallpaper, setCurrentWallpaper] = useState<number>(() => {
     const saved = localStorage.getItem("wallpaper");
     return saved ? Number(saved) : 0;
   });
-  const textareaRef= useRef<HTMLTextAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -45,6 +46,8 @@ function App() {
     localStorage.setItem("wallpaper", currentWallpaper.toString());
   }, [currentWallpaper]);
 
+  useEffect(() => {setTempTextSize(textSize)}, [textSize])
+
   return (
     <div
       className="con"
@@ -54,9 +57,20 @@ function App() {
     >
       <div className="editor">
         <div className="options">
-          <Input type="number" max={104} min={2} />
-          <Button onClick={() => setTextSize(textSize+1)}><AArrowUpIcon /></Button>
-          <Button onClick={() => setTextSize(textSize-1)}><AArrowDownIcon /></Button>
+          <Input
+            type="number"
+            max={104}
+            min={2}
+            value={tempTextSize}
+            onChange={(e) => setTempTextSize(Number(e.target.value))}
+            onBlur={() => setTextSize(tempTextSize)}
+          />
+          <Button onClick={() => setTextSize(textSize + 1)}>
+            <AArrowUpIcon />
+          </Button>
+          <Button onClick={() => setTextSize(textSize - 1)}>
+            <AArrowDownIcon />
+          </Button>
         </div>
         <Textarea
           placeholder="Write your text here..."

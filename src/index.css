@@ -28,6 +28,8 @@ body {
   justify-content: center;
   gap: 10px;
 }
+.con .editor .options input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;}
+.con .editor .options input { text-align: center;}
 .wallpapers-con {
   position: absolute;
   bottom: 20px;
