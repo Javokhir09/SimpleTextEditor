@@ -5,15 +5,23 @@ import bg2 from "./assets/bg-2.jpg";
 import bg3 from "./assets/bg-3.jpg";
 import bg4 from "./assets/bg-4.jpg";
 import Button from "./components/Button";
-import { AArrowDownIcon, AArrowUpIcon } from "lucide-react";
+import {
+  AArrowDownIcon,
+  AArrowUpIcon,
+  ChevronDown,
+  ChevronLeftIcon,
+} from "lucide-react";
 import Input from "./components/Input";
 
 function App() {
+  const wallpapers = [bg1, bg2, bg3, bg4];
   const [text, setText] = useState<string>("");
   const [textSize, setTextSize] = useState<number>(16);
   const [tempTextSize, setTempTextSize] = useState<number>(16);
-  const [textSizeOptionsOpen, setTextSizeOptionsOpen] = useState<boolean>(false);
-  const wallpapers = [bg1, bg2, bg3, bg4];
+  const [textSizeOptionsOpen, setTextSizeOptionsOpen] =
+    useState<boolean>(false);
+  const [currentFont, setCurrentFont] = useState<string>("Arial");
+  const [fontsOptionOpen, setFontsOptionOpen] = useState<boolean>(false);
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
   const [currentWallpaper, setCurrentWallpaper] = useState<number>(() => {
     const saved = localStorage.getItem("wallpaper");
@@ -70,19 +78,54 @@ function App() {
               onFocus={() => setTextSizeOptionsOpen(!textSizeOptionsOpen)}
               onBlur={() =>
                 tempTextSize > 96
-                ? setTextSize(96)
-                : tempTextSize < 2
-                ? setTextSize(2)
-                : setTextSize(tempTextSize)
+                  ? setTextSize(96)
+                  : tempTextSize < 2
+                    ? setTextSize(2)
+                    : setTextSize(tempTextSize)
               }
             />
             <div className="default-text-sizes">
-              <ul style={{display: `${textSizeOptionsOpen ? "flex" : "none"}`}}>
-                <li onClick={() => {setTextSize(12), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>12</li>
-                <li onClick={() => {setTextSize(16), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>16</li>
-                <li onClick={() => {setTextSize(24), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>24</li>
-                <li onClick={() => {setTextSize(28), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>28</li>
-                <li onClick={() => {setTextSize(36), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>36</li>
+              <ul style={{ display: textSizeOptionsOpen ? "flex" : "none" }}>
+                <li
+                  onClick={() => {
+                    (setTextSize(12),
+                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  }}
+                >
+                  12
+                </li>
+                <li
+                  onClick={() => {
+                    (setTextSize(16),
+                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  }}
+                >
+                  16
+                </li>
+                <li
+                  onClick={() => {
+                    (setTextSize(24),
+                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  }}
+                >
+                  24
+                </li>
+                <li
+                  onClick={() => {
+                    (setTextSize(28),
+                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  }}
+                >
+                  28
+                </li>
+                <li
+                  onClick={() => {
+                    (setTextSize(36),
+                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  }}
+                >
+                  36
+                </li>
               </ul>
             </div>
           </div>
@@ -92,10 +135,33 @@ function App() {
           <Button onClick={() => setTextSize(textSize - 1)}>
             <AArrowDownIcon />
           </Button>
+          <div
+            className="font-select"
+            onClick={() => setFontsOptionOpen(!fontsOptionOpen)}
+          >
+            <div className="current-font">
+              {currentFont}
+              <ChevronLeftIcon
+                size={20}
+                style={{
+                  transform: `rotate(${fontsOptionOpen ? -90 : 0}deg)`,
+                  transition: "transform 0.1s ease"
+                }}
+              />
+            </div>
+            <div className="fonts">
+              <ul style={{ display: fontsOptionOpen ? "flex" : "none" }}>
+                <li onClick={() => setCurrentFont("Arial")}>Arial</li>
+                <li onClick={() => setCurrentFont("Cursive")}>Cursive</li>
+                <li onClick={() => setCurrentFont("Monospace")}>Monospace</li>
+              </ul>
+            </div>
+          </div>
         </div>
         <Textarea
           placeholder="Write your text here..."
           onChange={(e) => setText(e.target.value)}
+          style={{ fontFamily: currentFont }}
           value={text}
           ref={textareaRef}
         />
