@@ -46,7 +46,9 @@ function App() {
     localStorage.setItem("wallpaper", currentWallpaper.toString());
   }, [currentWallpaper]);
 
-  useEffect(() => {setTempTextSize(textSize)}, [textSize])
+  useEffect(() => {
+    setTempTextSize(textSize);
+  }, [textSize]);
 
   return (
     <div
@@ -59,11 +61,17 @@ function App() {
         <div className="options">
           <Input
             type="number"
-            max={104}
+            max={96}
             min={2}
             value={tempTextSize}
             onChange={(e) => setTempTextSize(Number(e.target.value))}
-            onBlur={() => setTextSize(tempTextSize)}
+            onBlur={() =>
+              tempTextSize > 96
+                ? setTextSize(96)
+                : tempTextSize < 2
+                  ? setTextSize(2)
+                  : setTextSize(tempTextSize)
+            }
           />
           <Button onClick={() => setTextSize(textSize + 1)}>
             <AArrowUpIcon />
