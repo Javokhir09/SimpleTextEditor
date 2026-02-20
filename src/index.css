@@ -29,7 +29,40 @@ body {
   gap: 10px;
 }
 .con .editor .options input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none;}
-.con .editor .options input { text-align: center;}
+.con .editor .options input {text-align: center;}
+.con .editor .options .input-con {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.con .editor .options .input-con .default-text-sizes {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+}
+.con .editor .options .input-con .default-text-sizes ul {
+  display: none; 
+  flex-direction: column;
+  gap: 4px;
+  margin: 0; 
+  padding: 0;
+}
+.con .editor .options .input-con .default-text-sizes ul li {
+  list-style-type: none;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 4px 13px;
+  box-sizing: border-box;
+  color: #dddddd;
+  outline: none;
+  border: 1px solid #ffffff2e;
+  background-color: #ffffff1b;
+  backdrop-filter: blur(5px);
+  font-family: monospace;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
 .wallpapers-con {
   position: absolute;
   bottom: 20px;

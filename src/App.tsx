@@ -12,6 +12,7 @@ function App() {
   const [text, setText] = useState<string>("");
   const [textSize, setTextSize] = useState<number>(16);
   const [tempTextSize, setTempTextSize] = useState<number>(16);
+  const [textSizeOptionsOpen, setTextSizeOptionsOpen] = useState<boolean>(false);
   const wallpapers = [bg1, bg2, bg3, bg4];
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
   const [currentWallpaper, setCurrentWallpaper] = useState<number>(() => {
@@ -59,20 +60,32 @@ function App() {
     >
       <div className="editor">
         <div className="options">
-          <Input
-            type="number"
-            max={96}
-            min={2}
-            value={tempTextSize}
-            onChange={(e) => setTempTextSize(Number(e.target.value))}
-            onBlur={() =>
-              tempTextSize > 96
+          <div className="input-con">
+            <Input
+              type="number"
+              max={96}
+              min={2}
+              value={tempTextSize}
+              onChange={(e) => setTempTextSize(Number(e.target.value))}
+              onFocus={() => setTextSizeOptionsOpen(!textSizeOptionsOpen)}
+              onBlur={() =>
+                tempTextSize > 96
                 ? setTextSize(96)
                 : tempTextSize < 2
-                  ? setTextSize(2)
-                  : setTextSize(tempTextSize)
-            }
-          />
+                ? setTextSize(2)
+                : setTextSize(tempTextSize)
+              }
+            />
+            <div className="default-text-sizes">
+              <ul style={{display: `${textSizeOptionsOpen ? "flex" : "none"}`}}>
+                <li onClick={() => {setTextSize(12), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>12</li>
+                <li onClick={() => {setTextSize(16), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>16</li>
+                <li onClick={() => {setTextSize(24), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>24</li>
+                <li onClick={() => {setTextSize(28), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>28</li>
+                <li onClick={() => {setTextSize(36), setTextSizeOptionsOpen(!textSizeOptionsOpen)}}>36</li>
+              </ul>
+            </div>
+          </div>
           <Button onClick={() => setTextSize(textSize + 1)}>
             <AArrowUpIcon />
           </Button>
