@@ -20,7 +20,8 @@ function App() {
   const [textSize, setTextSize] = useState<number>(16);
   const [tempTextSize, setTempTextSize] = useState<number>(16);
   const [textSizeOptionsOpen, setTextSizeOptionsOpen] = useState<boolean>(false);
-  const [fontStyle, setFontStyle] = useState<string>("normal");
+  const [isItalic, setIsItalic] = useState(false);
+  const [isBold, setIsBold] = useState(false);
   const [currentFont, setCurrentFont] = useState<string>("Arial");
   const [fontsOptionOpen, setFontsOptionOpen] = useState<boolean>(false);
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
@@ -169,21 +170,22 @@ function App() {
           <hr />
           <Button
             onClick={() =>
-              setFontStyle(fontStyle === "italic" ? "normal" : "italic")
+              setIsItalic(!isItalic)
             }
             style={{
               backgroundColor:
-                fontStyle === "italic" ? "#ffffff40" : "#ffffff1b",
+                isItalic ? "#ffffff40" : "#ffffff1b",
             }}
           >
             <ItalicIcon />
           </Button>
           <Button
             onClick={() =>
-              setFontStyle(fontStyle === "bold" ? "normal" : "bold")
+              setIsBold(!isBold)
             }
             style={{
-              backgroundColor: fontStyle === "bold" ? "#ffffff40" : "#ffffff1b",
+              backgroundColor:
+                isBold ? "#ffffff40" : "#ffffff1b",
             }}
           >
             <BoldIcon />
@@ -194,8 +196,8 @@ function App() {
           onChange={(e) => setText(e.target.value)}
           style={{
             fontFamily: currentFont,
-            fontStyle: fontStyle,
-            fontWeight: fontStyle,
+            fontStyle: isItalic ? "italic" : "normal",
+            fontWeight: isBold ? "bold" : "normal",
           }}
           value={text}
           ref={textareaRef}
