@@ -29,6 +29,7 @@ function App() {
     return saved ? Number(saved) : 0;
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -221,6 +222,9 @@ function App() {
             />
           ))}
         </div>
+      </div>
+      <div className="word-count">
+        Words: {wordCount}
       </div>
     </div>
   );
