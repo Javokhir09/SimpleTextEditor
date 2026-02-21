@@ -77,52 +77,58 @@ function App() {
               value={tempTextSize}
               onChange={(e) => setTempTextSize(Number(e.target.value))}
               onFocus={() => setTextSizeOptionsOpen(!textSizeOptionsOpen)}
-              onBlur={() =>
-                tempTextSize > 96
+              onBlur={() => {
+                (tempTextSize > 96
                   ? setTextSize(96)
                   : tempTextSize < 2
                     ? setTextSize(2)
-                    : setTextSize(tempTextSize)
-              }
+                    : setTextSize(tempTextSize),
+                  setTextSizeOptionsOpen(false));
+              }}
             />
             <div className="default-text-sizes">
               <ul style={{ display: textSizeOptionsOpen ? "flex" : "none" }}>
                 <li
-                  onClick={() => {
-                    (setTextSize(12),
-                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  onMouseDown={() => {
+                    setTextSize(12);
+                    setTempTextSize(12);
+                    setTextSizeOptionsOpen(false);
                   }}
                 >
                   12
                 </li>
                 <li
-                  onClick={() => {
-                    (setTextSize(16),
-                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  onMouseDown={() => {
+                    setTextSize(16);
+                    setTempTextSize(16);
+                    setTextSizeOptionsOpen(false);
                   }}
                 >
                   16
                 </li>
                 <li
-                  onClick={() => {
-                    (setTextSize(24),
-                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  onMouseDown={() => {
+                    setTextSize(24);
+                    setTempTextSize(24);
+                    setTextSizeOptionsOpen(false);
                   }}
                 >
                   24
                 </li>
                 <li
-                  onClick={() => {
-                    (setTextSize(28),
-                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  onMouseDown={() => {
+                    setTextSize(28);
+                    setTempTextSize(28);
+                    setTextSizeOptionsOpen(false);
                   }}
                 >
                   28
                 </li>
                 <li
-                  onClick={() => {
-                    (setTextSize(36),
-                      setTextSizeOptionsOpen(!textSizeOptionsOpen));
+                  onMouseDown={() => {
+                    setTextSize(36);
+                    setTempTextSize(36);
+                    setTextSizeOptionsOpen(false);
                   }}
                 >
                   36
@@ -160,15 +166,24 @@ function App() {
             </div>
           </div>
           <hr />
-          <Button 
-            onClick={() => setFontStyle(fontStyle === "italic" ? "normal" : "italic")}
-            style={{ backgroundColor: fontStyle === "italic" ? "#ffffff40" : "#ffffff1b" }}
+          <Button
+            onClick={() =>
+              setFontStyle(fontStyle === "italic" ? "normal" : "italic")
+            }
+            style={{
+              backgroundColor:
+                fontStyle === "italic" ? "#ffffff40" : "#ffffff1b",
+            }}
           >
             <ItalicIcon />
           </Button>
-          <Button 
-            onClick={() => setFontStyle(fontStyle === "bold" ? "normal" : "bold")}
-            style={{ backgroundColor: fontStyle === "bold" ? "#ffffff40" : "#ffffff1b" }}
+          <Button
+            onClick={() =>
+              setFontStyle(fontStyle === "bold" ? "normal" : "bold")
+            }
+            style={{
+              backgroundColor: fontStyle === "bold" ? "#ffffff40" : "#ffffff1b",
+            }}
           >
             <BoldIcon />
           </Button>
@@ -176,10 +191,10 @@ function App() {
         <Textarea
           placeholder="Write your text here..."
           onChange={(e) => setText(e.target.value)}
-          style={{ 
+          style={{
             fontFamily: currentFont,
-            fontStyle: fontStyle, 
-            fontWeight: fontStyle
+            fontStyle: fontStyle,
+            fontWeight: fontStyle,
           }}
           value={text}
           ref={textareaRef}
