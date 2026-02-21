@@ -8,8 +8,9 @@ import Button from "./components/Button";
 import {
   AArrowDownIcon,
   AArrowUpIcon,
-  ChevronDown,
+  BoldIcon,
   ChevronLeftIcon,
+  ItalicIcon,
 } from "lucide-react";
 import Input from "./components/Input";
 
@@ -18,8 +19,8 @@ function App() {
   const [text, setText] = useState<string>("");
   const [textSize, setTextSize] = useState<number>(16);
   const [tempTextSize, setTempTextSize] = useState<number>(16);
-  const [textSizeOptionsOpen, setTextSizeOptionsOpen] =
-    useState<boolean>(false);
+  const [textSizeOptionsOpen, setTextSizeOptionsOpen] = useState<boolean>(false);
+  const [fontStyle, setFontStyle] = useState<string>("normal");
   const [currentFont, setCurrentFont] = useState<string>("Arial");
   const [fontsOptionOpen, setFontsOptionOpen] = useState<boolean>(false);
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
@@ -135,6 +136,7 @@ function App() {
           <Button onClick={() => setTextSize(textSize - 1)}>
             <AArrowDownIcon />
           </Button>
+          <hr />
           <div
             className="font-select"
             onClick={() => setFontsOptionOpen(!fontsOptionOpen)}
@@ -145,7 +147,7 @@ function App() {
                 size={20}
                 style={{
                   transform: `rotate(${fontsOptionOpen ? -90 : 0}deg)`,
-                  transition: "transform 0.1s ease"
+                  transition: "transform 0.1s ease",
                 }}
               />
             </div>
@@ -157,11 +159,28 @@ function App() {
               </ul>
             </div>
           </div>
+          <hr />
+          <Button 
+            onClick={() => setFontStyle(fontStyle === "italic" ? "normal" : "italic")}
+            style={{ backgroundColor: fontStyle === "italic" ? "#ffffff40" : "#ffffff1b" }}
+          >
+            <ItalicIcon />
+          </Button>
+          <Button 
+            onClick={() => setFontStyle(fontStyle === "bold" ? "normal" : "bold")}
+            style={{ backgroundColor: fontStyle === "bold" ? "#ffffff40" : "#ffffff1b" }}
+          >
+            <BoldIcon />
+          </Button>
         </div>
         <Textarea
           placeholder="Write your text here..."
           onChange={(e) => setText(e.target.value)}
-          style={{ fontFamily: currentFont }}
+          style={{ 
+            fontFamily: currentFont,
+            fontStyle: fontStyle, 
+            fontWeight: fontStyle
+          }}
           value={text}
           ref={textareaRef}
         />
