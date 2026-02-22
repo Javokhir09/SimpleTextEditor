@@ -17,7 +17,7 @@ import {
   TextAlignStartIcon,
 } from "lucide-react";
 import Input from "./components/Input";
-import type { textAlignments } from "./types";
+import type { Fonts, TextAlignments } from "./types";
 
 function App() {
   const wallpapers = [bg1, bg2, bg3, bg4];
@@ -27,7 +27,7 @@ function App() {
   const [textSizeOptionsOpen, setTextSizeOptionsOpen] = useState<boolean>(false);
   const [isItalic, setIsItalic] = useState(false);
   const [isBold, setIsBold] = useState(false);
-  const [currentFont, setCurrentFont] = useState<string>("Arial");
+  const [currentFont, setCurrentFont] = useState<Fonts>("Roboto");
   const [fontsOptionOpen, setFontsOptionOpen] = useState<boolean>(false);
   const [wallpapersOpen, setWallpapersOpen] = useState<boolean>(false);
   const [currentWallpaper, setCurrentWallpaper] = useState<number>(() => {
@@ -36,7 +36,7 @@ function App() {
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
-  const [textAlignment, setTextAlignment] = useState<textAlignments>("left");
+  const [textAlignment, setTextAlignment] = useState<TextAlignments>("left");
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -167,9 +167,11 @@ function App() {
             </div>
             <div className="fonts">
               <ul style={{ display: fontsOptionOpen ? "flex" : "none" }}>
-                <li onClick={() => setCurrentFont("Arial")}>Arial</li>
-                <li onClick={() => setCurrentFont("Cursive")}>Cursive</li>
-                <li onClick={() => setCurrentFont("Monospace")}>Monospace</li>
+                <li onClick={() => setCurrentFont("Roboto")}>Roboto</li>
+                <li onClick={() => setCurrentFont("Gluten")}>Gluten</li>
+                <li onClick={() => setCurrentFont("Birthstone")}>Birthstone</li>
+                <li onClick={() => setCurrentFont("Orbitron")}>Orbitron</li>
+                <li onClick={() => setCurrentFont("Faustina")}>Faustina</li>
               </ul>
             </div>
           </div>
