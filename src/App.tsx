@@ -17,6 +17,7 @@ import {
   TextAlignStartIcon,
 } from "lucide-react";
 import Input from "./components/Input";
+import type { textAlignments } from "./types";
 
 function App() {
   const wallpapers = [bg1, bg2, bg3, bg4];
@@ -35,7 +36,7 @@ function App() {
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
-  const [textAlignment, setTextAlignment] = useState<string>("left");
+  const [textAlignment, setTextAlignment] = useState<textAlignments>("left");
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -176,7 +177,7 @@ function App() {
           <Button
             onClick={() => setIsItalic(!isItalic)}
             style={{
-              backgroundColor: isItalic ? "#ffffff40" : "#ffffff1b",
+              backgroundColor: isItalic ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <ItalicIcon />
@@ -184,7 +185,7 @@ function App() {
           <Button
             onClick={() => setIsBold(!isBold)}
             style={{
-              backgroundColor: isBold ? "#ffffff40" : "#ffffff1b",
+              backgroundColor: isBold ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <BoldIcon />
@@ -194,7 +195,7 @@ function App() {
             onClick={() => setTextAlignment("right")}
             style={{
               backgroundColor:
-                textAlignment === "right" ? "#ffffff40" : "#ffffff1b",
+                textAlignment === "right" ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <TextAlignEndIcon />
@@ -203,7 +204,7 @@ function App() {
             onClick={() => setTextAlignment("center")}
             style={{
               backgroundColor:
-                textAlignment === "center" ? "#ffffff40" : "#ffffff1b",
+                textAlignment === "center" ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <TextAlignCenterIcon />
@@ -212,7 +213,7 @@ function App() {
             onClick={() => setTextAlignment("left")}
             style={{
               backgroundColor:
-                textAlignment === "left" ? "#ffffff40" : "#ffffff1b",
+                textAlignment === "left" ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <TextAlignStartIcon />
@@ -221,7 +222,7 @@ function App() {
             onClick={() => setTextAlignment("justify")}
             style={{
               backgroundColor:
-                textAlignment === "justify" ? "#ffffff40" : "#ffffff1b",
+                textAlignment === "justify" ? "#ffffff50" : "#ffffff1b",
             }}
           >
             <TextAlignJustifyIcon />

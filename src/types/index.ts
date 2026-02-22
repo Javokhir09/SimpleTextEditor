@@ -1,0 +1,1 @@
+export type textAlignments = "left" | "right" | "center" | "justify"
