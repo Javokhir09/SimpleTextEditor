@@ -11,6 +11,10 @@ import {
   BoldIcon,
   ChevronLeftIcon,
   ItalicIcon,
+  TextAlignCenterIcon,
+  TextAlignEndIcon,
+  TextAlignJustifyIcon,
+  TextAlignStartIcon,
 } from "lucide-react";
 import Input from "./components/Input";
 
@@ -31,6 +35,7 @@ function App() {
   });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+  const [textAlignment, setTextAlignment] = useState<string>("left");
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -169,26 +174,57 @@ function App() {
           </div>
           <hr />
           <Button
-            onClick={() =>
-              setIsItalic(!isItalic)
-            }
+            onClick={() => setIsItalic(!isItalic)}
             style={{
-              backgroundColor:
-                isItalic ? "#ffffff40" : "#ffffff1b",
+              backgroundColor: isItalic ? "#ffffff40" : "#ffffff1b",
             }}
           >
             <ItalicIcon />
           </Button>
           <Button
-            onClick={() =>
-              setIsBold(!isBold)
-            }
+            onClick={() => setIsBold(!isBold)}
             style={{
-              backgroundColor:
-                isBold ? "#ffffff40" : "#ffffff1b",
+              backgroundColor: isBold ? "#ffffff40" : "#ffffff1b",
             }}
           >
             <BoldIcon />
+          </Button>
+          <hr />
+          <Button
+            onClick={() => setTextAlignment("right")}
+            style={{
+              backgroundColor:
+                textAlignment === "right" ? "#ffffff40" : "#ffffff1b",
+            }}
+          >
+            <TextAlignEndIcon />
+          </Button>
+          <Button
+            onClick={() => setTextAlignment("center")}
+            style={{
+              backgroundColor:
+                textAlignment === "center" ? "#ffffff40" : "#ffffff1b",
+            }}
+          >
+            <TextAlignCenterIcon />
+          </Button>
+          <Button
+            onClick={() => setTextAlignment("left")}
+            style={{
+              backgroundColor:
+                textAlignment === "left" ? "#ffffff40" : "#ffffff1b",
+            }}
+          >
+            <TextAlignStartIcon />
+          </Button>
+          <Button
+            onClick={() => setTextAlignment("justify")}
+            style={{
+              backgroundColor:
+                textAlignment === "justify" ? "#ffffff40" : "#ffffff1b",
+            }}
+          >
+            <TextAlignJustifyIcon />
           </Button>
         </div>
         <Textarea
@@ -198,6 +234,16 @@ function App() {
             fontFamily: currentFont,
             fontStyle: isItalic ? "italic" : "normal",
             fontWeight: isBold ? "bold" : "normal",
+            textAlign:
+              textAlignment === "left"
+                ? "left"
+                : textAlignment === "center"
+                  ? "center"
+                  : textAlignment === "right"
+                    ? "right"
+                    : textAlignment === "justify"
+                      ? "justify"
+                      : "left",
           }}
           value={text}
           ref={textareaRef}
@@ -225,9 +271,7 @@ function App() {
           ))}
         </div>
       </div>
-      <div className="word-count">
-        Words: {wordCount}
-      </div>
+      <div className="word-count">Words: {wordCount}</div>
     </div>
   );
 }
