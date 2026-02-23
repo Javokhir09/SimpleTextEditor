@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Input from "./components/Input";
 import type { Fonts, TextAlignments } from "./types";
+import { initKeyboardEngine, playKeySound } from "./audio/keyboardSound";
 
 function App() {
   const wallpapers = [bg1, bg2, bg3, bg4];
@@ -37,6 +38,16 @@ function App() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
   const [textAlignment, setTextAlignment] = useState<TextAlignments>("left");
+
+  useEffect(() => {
+    initKeyboardEngine();
+  }, []);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const keyCode = (e.nativeEvent as KeyboardEvent).keyCode.toString();
+    playKeySound(keyCode);
+  };
+
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -233,6 +244,7 @@ function App() {
         <Textarea
           placeholder="Write your text here..."
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={handleKeyDown}
           style={{
             fontFamily: currentFont,
             fontStyle: isItalic ? "italic" : "normal",
