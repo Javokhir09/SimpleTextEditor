@@ -19,6 +19,7 @@ import {
 import Input from "./components/Input";
 import type { Fonts, TextAlignments } from "./types";
 import { initKeyboardEngine, playKeySound } from "./audio/keyboardSound";
+import jsPDF from "jspdf";
 
 function App() {
   const wallpapers = [bg1, bg2, bg3, bg4];
@@ -38,6 +39,7 @@ function App() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
   const [textAlignment, setTextAlignment] = useState<TextAlignments>("left");
+  const [exportOptionsOpen, setExportOptionsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     initKeyboardEngine();
@@ -48,6 +50,21 @@ function App() {
     playKeySound(keyCode);
   };
 
+  const exportAsTxt = (text: string) => {
+    const blob = new Blob([text], {type: "text/plain"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "my_text.txt";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  const exportAsPdf = (text: string) => {
+    const doc = new jsPDF();
+    const lines = doc.splitTextToSize(text, 180);
+    doc.text(lines, 10, 10);
+    doc.save("file.pdf");
+  }
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -264,7 +281,18 @@ function App() {
           ref={textareaRef}
         />
       </div>
-
+      <div className="export">
+        <p onClick={() => setExportOptionsOpen(!exportOptionsOpen)}>Export <ChevronLeftIcon size={20} style={{
+                  transform: `rotate(${exportOptionsOpen ? 90 : 0}deg)`,
+                  transition: "transform 0.1s ease",
+                }} /></p>
+        <div className="options">
+          <ul style={{display: exportOptionsOpen ? "flex" : "none"}}>
+            <li onClick={() => exportAsTxt(text)}>Export as <span>.txt</span></li>
+            <li onClick={() => exportAsPdf(text)}>Export as <span>.pdf</span></li>
+          </ul>
+        </div>
+      </div>
       <div className="wallpapers-con">
         <Button onClick={() => setWallpapersOpen(!wallpapersOpen)}>
           Wallpapers
