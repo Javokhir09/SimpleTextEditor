@@ -3,10 +3,10 @@ input {
   height: 100%;
   padding: 7px;
   box-sizing: border-box;
-  color: #fff;
+  color: var(--text-color);
   outline: none;
-  border: 1px solid #ffffff2e;
-  background-color: #ffffff1b;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
   backdrop-filter: blur(5px);
   font-family: monospace;
   font-size: 18px;

@@ -20,6 +20,8 @@ import {
   BoldIcon,
   ChevronLeftIcon,
   ItalicIcon,
+  MoonIcon,
+  SunIcon,
   TextAlignCenterIcon,
   TextAlignEndIcon,
   TextAlignJustifyIcon,
@@ -49,6 +51,11 @@ function App() {
   const wordCount = text.trim().split(/\s+/).filter(word => word.length > 0).length;
   const [textAlignment, setTextAlignment] = useState<TextAlignments>("left");
   const [exportOptionsOpen, setExportOptionsOpen] = useState<boolean>(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   useEffect(() => {
     initKeyboardEngine();
@@ -107,7 +114,7 @@ function App() {
 
   return (
     <div
-      className="con"
+      className={`con ${theme}`}
       style={{
         backgroundImage: `url(${wallpapers[currentWallpaper]})`,
       }}
@@ -213,59 +220,30 @@ function App() {
             </div>
           </div>
           <hr />
-          <Button
-            onClick={() => setIsItalic(!isItalic)}
-            style={{
-              backgroundColor: isItalic ? "#ffffff50" : "#ffffff1b",
-            }}
-          >
+          <Button onClick={() => setIsItalic(!isItalic)} className={isItalic ? "active" : ""}>
             <ItalicIcon />
           </Button>
           <Button
             onClick={() => setIsBold(!isBold)}
-            style={{
-              backgroundColor: isBold ? "#ffffff50" : "#ffffff1b",
-            }}
+            className={isBold ? "active" : ""}
           >
             <BoldIcon />
           </Button>
           <hr />
-          <Button
-            onClick={() => setTextAlignment("right")}
-            style={{
-              backgroundColor:
-                textAlignment === "right" ? "#ffffff50" : "#ffffff1b",
-            }}
-          >
+          <Button onClick={() => setTextAlignment("right")} className={textAlignment === "right" ? "active" : ""}>
             <TextAlignEndIcon />
           </Button>
-          <Button
-            onClick={() => setTextAlignment("center")}
-            style={{
-              backgroundColor:
-                textAlignment === "center" ? "#ffffff50" : "#ffffff1b",
-            }}
-          >
+          <Button onClick={() => setTextAlignment("center")} className={textAlignment === "center" ? "active" : ""}>
             <TextAlignCenterIcon />
           </Button>
-          <Button
-            onClick={() => setTextAlignment("left")}
-            style={{
-              backgroundColor:
-                textAlignment === "left" ? "#ffffff50" : "#ffffff1b",
-            }}
-          >
+          <Button onClick={() => setTextAlignment("left")} className={textAlignment === "left" ? "active" : ""}>
             <TextAlignStartIcon />
           </Button>
-          <Button
-            onClick={() => setTextAlignment("justify")}
-            style={{
-              backgroundColor:
-                textAlignment === "justify" ? "#ffffff50" : "#ffffff1b",
-            }}
-          >
+          <Button onClick={() => setTextAlignment("justify")} className={textAlignment === "justify" ? "active" : ""}>
             <TextAlignJustifyIcon />
           </Button>
+          <hr />
+          <Button onClick={toggleTheme}>{theme === "light" ? <MoonIcon /> : <SunIcon />}</Button>
         </div>
         <Textarea
           placeholder="Write your text here..."
