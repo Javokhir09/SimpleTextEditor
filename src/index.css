@@ -199,9 +199,6 @@ body {
   gap: 10px;
 }
 .wallpapers-con .wallpapers {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
   box-sizing: border-box;
   border-radius: 5px;
   border: 1px solid #ffffff00;
@@ -212,15 +209,20 @@ body {
   overflow: hidden;
   transition: 200ms all;
   opacity: 0%;
+  overflow-y: scroll;
+  width: 140px;
+  padding-top: 5px;
   img {
     border-radius: 5px;
-    width: 120px;
+    width: 113px;
     cursor: pointer;
     transition: 100ms all;
     margin: 5px 10px;
     &:hover {scale: 1.03;}
   }
 }
+.wallpapers-con .wallpapers::-webkit-scrollbar {width: 7px;}
+.wallpapers-con .wallpapers::-webkit-scrollbar-thumb {background-color: #82828288; backdrop-filter: blur(5px);}
 .wallpapers-con .wallpapers-active {
   height: 335px;
   opacity: 100%;
